@@ -1,30 +1,19 @@
-import asyncio
+from aiogram.types import Message, CallbackQuery , FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.fsm.context import FSMContext
+from aiogram import Bot, Dispatcher, F
+from aiogram.filters import Command
 import EasyGraph
 import logging
-import sys
-from os import getenv
-import re
-from aiogram import Bot, Dispatcher, html, F
-from aiogram.client.default import DefaultBotProperties
-from aiogram.enums import ParseMode
-from aiogram.fsm.state import State, StatesGroup
-from aiogram.fsm.context import FSMContext
-from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.filters import CommandStart
-from aiogram.types import Message, CallbackQuery , FSInputFile
-from datetime import datetime
 import asyncio
-import logging
-from aiogram import Bot, Dispatcher, types
-from aiogram.filters import Command
-from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State, StatesGroup
-from aiogram.types import Message, InputFile
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+import sys
+import re
 
 keys = {}
 with open('keys.conf', 'r') as f:
     exec(f.read(), keys)
+
+
 bot = Bot(keys['TOKEN'])
 dp = Dispatcher()
 logging.basicConfig(level=logging.INFO)
@@ -54,7 +43,6 @@ class InputLinesABC(StatesGroup):
     pointC = State()
     graph = State()
 
-# Команда /graph — меню с кнопками
 @dp.message(Command("graph"))
 async def send_menu(message: Message):
     keyboard = InlineKeyboardMarkup(
