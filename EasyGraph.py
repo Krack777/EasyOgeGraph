@@ -24,7 +24,7 @@ class EasyGraph:
 
             return route_length, route
 
-    def make(self, route: list):
+    def make(self, route: list, filename: str):
         route_edges = [(route[i], route[i + 1]) for i in range(len(route) - 1)]
         pos = nx.spring_layout(self.Graph)
         nx.draw(self.Graph, pos, with_labels=True, node_color='lightblue', node_size=1000, font_size=16)
@@ -32,6 +32,7 @@ class EasyGraph:
         nx.draw_networkx_edges(self.Graph, pos, edgelist=route_edges, edge_color='red', width=4)
         nx.draw_networkx_edge_labels(self.Graph, pos, edge_labels={(pos1, pos2): dict['weight'] for pos1, pos2, dict in                                                          self.Graph.edges(data=True)})
         nx.draw_networkx_nodes(self.Graph, pos, nodelist=route, node_color='orange')
+        plt.savefig(f"{filename}.png", format="png", dpi=300, bbox_inches="tight")
         plt.show()
 
     def textmaker(self, route_length: int, route: list):
