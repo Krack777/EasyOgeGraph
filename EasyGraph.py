@@ -33,7 +33,7 @@ class EasyGraph:
         nx.draw_networkx_edge_labels(self.Graph, pos, edge_labels={(pos1, pos2): dict['weight'] for pos1, pos2, dict in self.Graph.edges(data=True)}) # combining nodes and edges
         nx.draw_networkx_nodes(self.Graph, pos, nodelist=route, node_color='red') # used in route nodes
         plt.savefig(f"pics\\{filename}.png", format="png", dpi=300, bbox_inches="tight")
-        plt.show()
+        plt.close()
 
     def textmaker(self, route_length: int, route: list):
         visual_route = ""
